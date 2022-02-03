@@ -15,7 +15,7 @@ const Select = ({ label, value, onChange, children }) => {
       </InvisibleSelect>
       <VisibleSelect>
         <DisplayText>{displayedValue}</DisplayText>
-        <IconWrapper id="chevron-down" size={12} strokeWidth={2} />
+        <IconWrapper id="chevron-down" size={24} strokeWidth={2} />
       </VisibleSelect>
     </Wrapper>
   );
@@ -34,9 +34,9 @@ const Wrapper = styled.div`
 const InvisibleSelect = styled.select`
   position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   opacity: 0;
 `;
 
@@ -49,15 +49,25 @@ const VisibleSelect = styled.div`
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 1rem;
+
+  ${InvisibleSelect}:focus + & {
+    outline: 1px dotted #212121;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
 `;
 
 const DisplayText = styled.p`
   display: inline-block;
-  padding-right: 24px;
+  padding-right: 36px;
 `;
 
 const IconWrapper = styled(Icon)`
-  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+  margin: auto;
+  pointer-events: none;
 `;
 
 export default Select;
