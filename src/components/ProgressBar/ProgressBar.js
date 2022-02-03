@@ -7,14 +7,17 @@ import VisuallyHidden from "../VisuallyHidden";
 
 const SIZES = {
   small: {
+    "--inner-padding": 0 + "px",
     "--height": 8 + "px",
     "--radius": 4 + "px",
   },
   medium: {
+    "--inner-padding": 0 + "px",
     "--height": 12 + "px",
     "--radius": 4 + "px",
   },
   large: {
+    "--inner-padding": 4 + "px",
     "--height": 24 + "px",
     "--radius": 8 + "px",
   },
@@ -29,20 +32,20 @@ const ProgressBar = ({ value, size }) => {
       aria-valuemax="100"
       style={SIZES[size]}
     >
-      <Mask style={SIZES[size]} hasInnerPadding={size === "large"}>
-        <Progress style={SIZES[size]} value={value} hasInnerPadding={size === "large"} />
+      <Mask style={SIZES[size]}>
+        <Progress style={SIZES[size]} value={value} />
       </Mask>
+      <VisuallyHidden>{`${value}%`}</VisuallyHidden>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
   position: relative;
-  width: 370px;
   height: var(--height);
   box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
   border-radius: var(--radius);
-  background-color: hsla(0, 0%, 50%, 0.15);
+  background-color: ${COLORS.transparentGray15};
 `;
 
 const Mask = styled.div`
@@ -52,7 +55,7 @@ const Mask = styled.div`
   bottom: 0;
   right: 0;
   border-radius: var(--radius);
-  border: ${(p) => (p.hasInnerPadding ? 4 : 0)}px solid transparent;
+  border: var(--inner-padding) solid transparent;
   overflow: hidden;
 `;
 
@@ -61,8 +64,8 @@ const Progress = styled.div`
   top: 0;
   left: 0;
   bottom: 0;
-  width: ${(p) => ((370 - (p.hasInnerPadding ? 8 : 0)) / 100) * p.value}px;
-  background: hsla(240, 80%, 60%, 1);
+  width: ${(p) => p.value}%;
+  background-color: ${COLORS.primary};
 `;
 
 export default ProgressBar;
